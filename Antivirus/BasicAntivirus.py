@@ -7,14 +7,15 @@ from PyQt5.QtWidgets import (QApplication, QWidget, QVBoxLayout, QHBoxLayout, QP
 from PyQt5.QtCore import Qt, QThread, pyqtSignal, QTimer, QTime
 from PyQt5.QtGui import QFont, QIcon
 
-know_virus_signatures = [
-    'd41d8cd98f00b204e9800998ecf8427e',
-    '5d41402abc4b2a76b9719d911017c592',
-    '44d88612fea8a8f36de82e1278abb02f',
-    'e99a18c428cb38d5f260853678922e03',
-    '098f6bcd4621d373cade4e832627b4f6',
-    '7b52009b64fd0a2a49e6d8a939753077792b0554'
-]
+def load_virus_signatures(file_path="virus_signatures.txt"):
+    try:
+        with open(file_path, 'r') as f:
+            return [line.strip() for line in f if line.strip()]
+    except FileNotFoundError:
+        return []
+
+know_virus_signatures = load_virus_signatures()
+
 
 
 scheduled_scans = []
